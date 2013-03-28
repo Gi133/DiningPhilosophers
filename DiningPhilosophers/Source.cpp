@@ -56,6 +56,7 @@ void SimulationSetup()
 
 	for (int i = 0; i < num_forks; i++)
 	{
+		// Store mutex in heap, keep pointer to unique lock and access mutex through it.
 		std::mutex m;
 		fork_vector.push_back(new std::unique_lock<std::mutex>(m));
 	}
