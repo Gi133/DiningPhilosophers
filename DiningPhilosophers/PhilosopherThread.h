@@ -16,7 +16,7 @@ class PhilosopherThread
 private:
 	Philosopher* _philosopher;
 	std::thread* _thread;
-	std::vector<std::mutex*> _aquired_resources;
+	std::vector<std::unique_lock<std::mutex>*> _aquired_resources;
 
 	bool _active;
 	int _required_resources;
@@ -41,11 +41,10 @@ public:
 	~PhilosopherThread(void);
 
 	// Mutex Acquisition
-	void AquireMutex(std::mutex* aquired_mutex);
+	void AquireMutex(std::unique_lock<std::mutex>* aquired_mutex);
 
 	// Philosopher Class access.
 	std::string get_id(){return this->_philosopher->get_id();}
-	std::string get_state(){return this->_philosopher->get_state();}
 	__int64 get_time_starving(){return this->_philosopher->get_time_starving();}
 	int get_thinking_time(){return this->_philosopher->get_thinking_time();}
 	int get_eating_time(){return this->_philosopher->get_eating_time();}

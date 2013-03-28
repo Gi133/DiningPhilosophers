@@ -137,7 +137,7 @@ void PhilosopherThread::CalculateWaitTime()
 	_philosopher->set_time_starving(elapsed_seconds);
 }
 
-void PhilosopherThread::AquireMutex(std::mutex* aquired_mutex) // Mutex passed in as a pointer and added to the list of mutexes associated with this thread.
+void PhilosopherThread::AquireMutex(std::unique_lock<std::mutex>* aquired_mutex) // Mutex passed in as a pointer and added to the list of mutexes associated with this thread.
 {
 	_aquired_resources.push_back(aquired_mutex);
 }
@@ -150,7 +150,7 @@ void PhilosopherThread::LockResources()
 
 	do
 	{
-		for (std::mutex* i : _aquired_resources)
+		for (std::unique_lock<std::mutex>* i : _aquired_resources)
 		{
 			if (!i->try_lock()) // Attempt to lock the mutex.
 			{
@@ -165,7 +165,7 @@ void PhilosopherThread::LockResources()
 
 void PhilosopherThread::UnlockResources()
 {
-	for (std::mutex* i : _aquired_resources )
+	for (std::unique_lock<std::mutex>* i : _aquired_resources )
 		i->unlock();
 
 	// Clear the resource vector. Leaving Resource mutexes intact for further use.

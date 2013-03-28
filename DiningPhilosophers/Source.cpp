@@ -10,7 +10,7 @@ unsigned int num_philosophers = 0;
 unsigned int num_forks  = 0;
 
 // Threading/Mutexes
-std::vector<std::mutex*> fork_vector; //The "forks" go here.
+std::vector<std::unique_lock<std::mutex>*> fork_vector; //The "forks" go here.
 std::vector<PhilosopherThread*> philosopherthread_vector;
 
 void Init()
@@ -55,7 +55,15 @@ void SimulationSetup()
 		philosopherthread_vector.push_back(new PhilosopherThread());
 
 	for (int i = 0; i < num_forks; i++)
-		fork_vector.push_back(new std::mutex());
+	{
+		std::mutex m;
+		fork_vector.push_back(new std::unique_lock<std::mutex>(m));
+	}
+}
+
+void Simulation()
+{
+	// Function that will handle all the simulation in the philosopher's problem.
 }
 
 void main()
@@ -78,6 +86,7 @@ void main()
 		}
 	case SIMULATION:
 		{
+			Simulation();
 		}
 	case RESULTS:
 		{
