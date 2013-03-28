@@ -19,7 +19,7 @@ PhilosopherThread::PhilosopherThread(int force_resources) // If this overload is
 	_active = true;
 	_timer_start = false;
 
-	this->_required_resources = force_resources; 
+	this->_required_resources = force_resources;
 }
 
 PhilosopherThread::PhilosopherThread(bool random_resources)
@@ -41,6 +41,7 @@ PhilosopherThread::~PhilosopherThread(void)
 {
 	// Join the thread so it doesn't run rampant around the system.
 	_thread->join();
+	delete(_philosopher);
 }
 
 void PhilosopherThread::StartThread()
@@ -52,6 +53,9 @@ void PhilosopherThread::ThreadFunction() // Function used by the thread
 {
 	while (this->_active) // Main Loop for the thread.
 	{
+		// Decrease loop remains.
+		_philosopher->set_num_repeats_remaining(_philosopher->get_num_repeats_remaining() - 1);
+
 		switch (_philosopher->get_state())
 		{
 		case _philosopher->THINKING:
@@ -67,6 +71,10 @@ void PhilosopherThread::ThreadFunction() // Function used by the thread
 				onEating();
 			}
 		}
+
+		// Check if the loop is still active.
+		if (_philosopher->get_num_repeats_remaining() <= 0)
+			this->_active = false;
 	}
 }
 
@@ -109,7 +117,6 @@ void PhilosopherThread::onEating()
 
 	// Lock the mutexes.
 	LockResources();
-	
 
 	while (std::chrono::steady_clock::now() < timer_end)
 	{
@@ -137,11 +144,11 @@ void PhilosopherThread::AquireMutex(std::mutex* aquired_mutex) // Mutex passed i
 
 void PhilosopherThread::LockResources()
 {
-	// Function to lock the resources in the _aquired_resources vector. 
+	// Function to lock the resources in the _aquired_resources vector.
 	// Also has some debugging and feedback functionality. Will attempt to try and lock all the mutexes before proceeding.
 	int num_resources_aquired = 0;
 
-	do 
+	do
 	{
 		for (std::mutex* i : _aquired_resources)
 		{
@@ -160,4 +167,7 @@ void PhilosopherThread::UnlockResources()
 {
 	for (std::mutex* i : _aquired_resources )
 		i->unlock();
+
+	// Clear the resource vector. Leaving Resource mutexes intact for further use.
+	_aquired_resources.clear();
 }

@@ -40,6 +40,16 @@ public:
 	PhilosopherThread(bool random_resources);
 	~PhilosopherThread(void);
 
-	//Mutex Acquisition
+	// Mutex Acquisition
 	void AquireMutex(std::mutex* aquired_mutex);
+
+	// Philosopher Class access.
+	std::string get_id(){return this->_philosopher->get_id();}
+	std::string get_state(){return this->_philosopher->get_state();}
+	__int64 get_time_starving(){return this->_philosopher->get_time_starving();}
+	int get_thinking_time(){return this->_philosopher->get_thinking_time();}
+	int get_eating_time(){return this->_philosopher->get_eating_time();}
+	unsigned int get_num_forks(){return this->_philosopher->get_num_forks();}
+	unsigned int get_num_repeats(){return this->_philosopher->get_num_repeats();}
+	unsigned int get_num_repeats_remaining(){return this->_philosopher->get_num_repeats_remaining();}
 };

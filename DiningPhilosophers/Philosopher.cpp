@@ -6,6 +6,7 @@ Philosopher::Philosopher(void)
 
 	GeneratePhilosopherName();
 	GenerateDelays();
+	GenerateRepeats();
 
 	this->state = THINKING;
 }
@@ -43,4 +44,14 @@ void Philosopher::GenerateDelays()
 	// Generate a time (in ms).
 	thinking_time = distribution(engine);
 	eating_time = distribution(engine);
+}
+
+void Philosopher::GenerateRepeats()
+{
+	std::uniform_int_distribution<int> distribution(0, 5);
+	std::mt19937 engine;
+
+	auto generator = std::bind(distribution, engine);
+
+	num_repeats = num_repeats_remaining = generator();
 }
