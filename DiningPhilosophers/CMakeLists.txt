@@ -13,7 +13,7 @@ endif()
 
 file(GLOB_RECURSE INCS "*.h")
 
-aux_source_directory(src SRCS)
+aux_source_directory(./ SRCS)
 
 
 add_executable(${PROJECT_NAME} ${SRCS} ${INCS})
