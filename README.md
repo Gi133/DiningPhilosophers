@@ -1,5 +1,12 @@
 #Dining Philosophers Operating Systems Assessment
 
+# What is this?
+In essence, this is a thread manager. What started off as a solution to the philosopher problem went outside the scope it was originally intented for. The application provded here makes use of thread timings to make sure that no thread is suspended for too long on a limited number of resources. What the users will see, to this effect, when starting the application is the ability to set the number of philosphers/threads as well as how many spoons/virtual_resources are available to them as a whole.
+
+These settings can be tweaked as required or simply chose the optional benchmark mode to see how long your processor requires to go through these threads. Be warned though, this is a highly CPU intensive application if the number of threads is set too high and could potentiall cause hangups and stalls.
+
+READ BELOW FOR THE INITIAL IDEA FOR THIS PROJECT, NOT EVERYTHING WRITTEN HERE HAS ACTUALLY BEEN IMPLEMENTED AND CHANGES HAVE BEEN MADE AS MENTIONED ABOVE.
+
 ##Problem:
 Five philosophers spend all their life eating and doing what philosophers do.
 Their dining table has 5 forks/chopsticks on it for the same amount of philosophers
@@ -10,6 +17,10 @@ he puts down the chopsticks and goes back to thinking.
 
 Main problem is that there are not enough chopsticks for all philosophers so the algorithm has to
 stop them from starving to death while waiting for a chopstick to free up.
+
+Taking this a step further to be closer to a real threading implementation would require the program to work for
+any number of philosophers and any number of forks/chopsticks. At the same time the philosophers should not be
+aware of eachother because that defeats the purpose of threading. They should be self-contained as much as possible.
 
 ###Solutions:
 Use mutexes as chopsticks and make sure a pair is ready for each thread and/or use a semaphore as a waiter 

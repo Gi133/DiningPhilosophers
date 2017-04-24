@@ -1,6 +1,10 @@
+#include <string>
+#include <fstream>
+#include <iostream>
+
 #include "Philosopher.h"
 
-Philosopher::Philosopher(void)
+Philosopher::Philosopher()
 {
 	this->time_starving = this->thinking_time = this->eating_time = 0;
 
@@ -11,47 +15,60 @@ Philosopher::Philosopher(void)
 	this->state = THINKING;
 }
 
-Philosopher::~Philosopher(void)
+Philosopher::~Philosopher()
 {
+}
+
+void Philosopher::GenerateForkNumber()
+{
+	this->num_forks = GenerateRandomNumber(1, 4);
+}
+
+unsigned int Philosopher::GenerateRandomNumber(int min_num, int max_num) const
+{
+	std::random_device rd;
+	std::mt19937 _rng_engine(rd());
+
+	//Get Distribution with min and max values.
+	std::uniform_int_distribution<unsigned int> _distribution(min_num, max_num);
+	std::function<unsigned int()> _random_num = bind(_distribution, _rng_engine);
+	return _random_num();
 }
 
 void Philosopher::GeneratePhilosopherName()
 {
-	//Generate a random line number for the name.
-	std::uniform_int_distribution<int> distribution(0, 106);
-	std::mt19937 engine; // Using Mersenne twister MT19937
-	auto generator = std::bind(distribution, engine);
+	std::ifstream myfile("PhilosopherNames.txt");
 
-	int line = generator(); // Generate a number.
-
-	std::ifstream myfile ("PhilosopherNames.txt");
-
-	for (int i = 0; i <= (line+1); i++)
-	{
-		std::getline(myfile, id);
-	}
+	for (unsigned i = 0; i <= GenerateRandomNumber(1, 107); i++)
+		getline(myfile, id);
 
 	myfile.close();
 }
 
 void Philosopher::GenerateDelays()
 {
-	std::uniform_int_distribution<int> distribution(0, 350);
-	std::mt19937 engine;
-
-	auto generator = std::bind(distribution, engine);
-
 	// Generate a time (in ms).
-	thinking_time = distribution(engine);
-	eating_time = distribution(engine);
+	thinking_time = GenerateRandomNumber(0, 350);
+	eating_time = GenerateRandomNumber(0, 350);
 }
 
 void Philosopher::GenerateRepeats()
 {
-	std::uniform_int_distribution<int> distribution(0, 5);
-	std::mt19937 engine;
+	num_repeats = num_repeats_remaining = GenerateRandomNumber(1, 5);
+}
 
-	auto generator = std::bind(distribution, engine);
+void Philosopher::PrintResults()
+{
+	__int64 total_time = 0;
 
-	num_repeats = num_repeats_remaining = generator();
+	// Go through the vector with the starvation times and print the times.
+	std::cout << id << " has starved " << starving_times.size() << " time/s" << std::endl;
+	std::cout << "Times the philosopher spent starving: ";
+	for (__int64 i : starving_times)
+	{
+		std::cout << i << "ms ";
+		total_time += i;
+	}
+	std::cout << "." << std::endl;
+	std::cout << "On average, time spent starving :" << total_time / starving_times.size() << "ms." << std::endl << std::endl;
 }

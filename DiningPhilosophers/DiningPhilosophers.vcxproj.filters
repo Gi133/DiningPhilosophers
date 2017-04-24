@@ -27,12 +27,18 @@
     <ClCompile Include="PhilosopherThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Fork.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Philosopher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PhilosopherThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fork.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

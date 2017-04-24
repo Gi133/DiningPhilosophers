@@ -7,48 +7,75 @@
 #pragma once
 #include <thread>
 #include <mutex>
-#include <windows.h>
 #include <chrono>
+#include <atomic>
+
 #include "Philosopher.h"
+#include "Fork.h"
 
 class PhilosopherThread
 {
-private:
 	Philosopher* _philosopher;
 	std::thread* _thread;
-	std::vector<std::unique_lock<std::mutex>*> _aquired_resources;
+	std::vector<Fork*> _acquired_resources;
+	std::mutex* _cout_mutex;
+
+	// Atomics
+	std::atomic<bool> sync_flag; // Synchronization flag, true if main should proceed, false if thread is processing.
+
+	// State messaging variables/functions.
+	bool think_message_sent, wait_message_sent, eat_message_sent;
+	bool random_resources_;
+	void SendThinkMessage();
+	void SendWaitMessage();
+	void SendEatMessage();
+	void SendPickupFork() const;
+	void SendDropFork() const;
+	void SendRepeatsRemaining() const;
+
+	void Reset();
 
 	bool _active;
-	int _required_resources;
 	bool _timer_start;
 	std::chrono::time_point<std::chrono::system_clock> start, end; // Used for timer.
 
+	void Initialize(std::mutex* cout_mutex, bool benchmark_mode);
+	void SetBenchmarkMode(bool benchmark_mode) const;
 	void ThreadFunction();
 	void onThinking();
 	void onWaiting();
 	void onEating();
 
-	void StartThread();
+	void UpdateStarvingTime();
+
 	void LockResources();
 	void UnlockResources();
 
-	void CalculateWaitTime();
-
 public:
-	PhilosopherThread(void);
-	PhilosopherThread(int force_resources);
-	PhilosopherThread(bool random_resources);
-	~PhilosopherThread(void);
+	PhilosopherThread(std::mutex* cout_mutex, bool benchmark_mode);
+	PhilosopherThread(std::mutex* cout_mutex, bool benchmark_mode, int force_resources);
+	PhilosopherThread(std::mutex* cout_mutex, bool benchmark_mode, bool random_resources);
+	~PhilosopherThread();
+
+	// Controllers
+	void StartThread();
+	void StopThread() const;
 
 	// Mutex Acquisition
-	void AquireMutex(std::unique_lock<std::mutex>* aquired_mutex);
+	void AcquireMutex(Fork* aquired_mutex);
+
+	// Access atomic values.
+	void set_sync_flag(bool set_sync_flag_state) { this->sync_flag.store(set_sync_flag_state); }
+	bool get_sync_flag() const { return this->sync_flag.load(); }
 
 	// Philosopher Class access.
-	std::string get_id(){return this->_philosopher->get_id();}
-	__int64 get_time_starving(){return this->_philosopher->get_time_starving();}
-	int get_thinking_time(){return this->_philosopher->get_thinking_time();}
-	int get_eating_time(){return this->_philosopher->get_eating_time();}
-	unsigned int get_num_forks(){return this->_philosopher->get_num_forks();}
-	unsigned int get_num_repeats(){return this->_philosopher->get_num_repeats();}
-	unsigned int get_num_repeats_remaining(){return this->_philosopher->get_num_repeats_remaining();}
+	std::string get_id() const { return this->_philosopher->get_id(); }
+	__int64 get_time_starving() const { return this->_philosopher->get_time_starving(); }
+	int get_thinking_time() const { return this->_philosopher->get_thinking_time(); }
+	int get_eating_time() const { return this->_philosopher->get_eating_time(); }
+	unsigned int get_num_forks() const { return this->_philosopher->get_num_forks(); }
+	unsigned int get_num_repeats() const { return this->_philosopher->get_num_repeats(); }
+	unsigned int get_num_repeats_remaining() const { return this->_philosopher->get_num_repeats_remaining(); }
+	bool get_active() const { return this->_active; }
+	void PrintResults() const { _philosopher->PrintResults(); }
 };
