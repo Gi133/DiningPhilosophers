@@ -55,4 +55,4 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${dir}/bin")
 
 
 # Add projects.
-add_subdirectory(example)
+add_subdirectory(DiningPhilosophers)
