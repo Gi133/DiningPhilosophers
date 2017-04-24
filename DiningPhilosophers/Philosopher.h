@@ -17,7 +17,7 @@ class Philosopher
 {
 	// Variables
 	std::string id; //Philosopher's name. Picked from a list of names.
-	__int64 time_starving; //Time philosopher spent waiting for "forks".
+	long long time_starving; //Time philosopher spent waiting for "forks".
 	int thinking_time; //How long the philosopher will spend thinking, randomly generated.
 	int eating_time; //How long the philosopher will spend eating, randomly generated.
 	unsigned int num_forks; // Forks the Philosopher needs, could have more than 2 hands.
@@ -44,7 +44,7 @@ public:
 	// Getters
 	std::string get_id() const { return this->id; }
 	StateText get_state() const { return this->state; }
-	__int64 get_time_starving() const { return this->time_starving; }
+	long long get_time_starving() const { return this->time_starving; }
 	int get_thinking_time() const { return this->thinking_time; }
 	int get_eating_time() const { return this->eating_time; }
 	unsigned int get_num_forks() const { return this->num_forks; }

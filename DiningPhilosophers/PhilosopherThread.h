@@ -70,7 +70,7 @@ public:
 
 	// Philosopher Class access.
 	std::string get_id() const { return this->_philosopher->get_id(); }
-	__int64 get_time_starving() const { return this->_philosopher->get_time_starving(); }
+	long long get_time_starving() const { return this->_philosopher->get_time_starving(); }
 	int get_thinking_time() const { return this->_philosopher->get_thinking_time(); }
 	int get_eating_time() const { return this->_philosopher->get_eating_time(); }
 	unsigned int get_num_forks() const { return this->_philosopher->get_num_forks(); }

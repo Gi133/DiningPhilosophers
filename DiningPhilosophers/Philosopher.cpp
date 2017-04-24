@@ -59,12 +59,12 @@ void Philosopher::GenerateRepeats()
 
 void Philosopher::PrintResults()
 {
-	__int64 total_time = 0;
+	long long total_time = 0;
 
 	// Go through the vector with the starvation times and print the times.
 	std::cout << id << " has starved " << starving_times.size() << " time/s" << std::endl;
 	std::cout << "Times the philosopher spent starving: ";
-	for (__int64 i : starving_times)
+	for (auto i : starving_times)
 	{
 		std::cout << i << "ms ";
 		total_time += i;
