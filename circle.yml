@@ -1,3 +1,6 @@
+general:
+  build_dir: DiningPhilosophers
+
 machine:
   timezone:
     Europe/London
