@@ -45,6 +45,4 @@ script:
   - cmake ..
   
   # Build the project.
-  - make init-submodule 
   - make
-  - make check
