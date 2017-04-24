@@ -32,13 +32,19 @@ matrix:
             - cmake
             - cmake-data
       env: COMPILER=clang++-3.8
+      
 script:
   - export CXX=$COMPILER; 
+  
   # Print the CMake version.
   - cmake --version          
   - mkdir build
   - cd build
+  
   # Call the CMake.
   - cmake ..
-  # Build the porject.
+  
+  # Build the project.
+  - make init-submodule 
   - make
+  - make check
