@@ -34,5 +34,11 @@ matrix:
       env: COMPILER=clang++-3.8
 script:
   - export CXX=$COMPILER; 
-  - mkdir bld; cd bld/; cmake ../; make 
-  - ./ut
+  # Print the CMake version.
+  - cmake --version          
+  - mkdir build
+  - cd build
+  # Call the CMake.
+  - cmake ..
+  # Build the porject.
+  - make
