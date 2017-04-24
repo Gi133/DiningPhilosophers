@@ -14,6 +14,10 @@ if (UNIX)
 
     # Use C 99 standart.
     set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
+    
+    #set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+    #find_package (Threads REQUIRED)
+    target_link_libraries(mything Threads::Threads)
 endif (UNIX)
 
 
@@ -52,7 +56,6 @@ set(dir ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${dir}/bin")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${dir}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${dir}/bin")
-
 
 # Add projects.
 add_subdirectory(DiningPhilosophers)
