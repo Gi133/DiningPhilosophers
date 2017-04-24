@@ -333,7 +333,7 @@ void Results()
 		std::cout << std::endl << "BENCHMARK TIME: " << benchmark_time << "ms." << std::endl;
 }
 
-void main()
+int main()
 {
 	state = INITIALIZATION;
 	auto program_active = true;
@@ -385,4 +385,6 @@ void main()
 		}
 		}
 	}
+
+	return 0;
 }
