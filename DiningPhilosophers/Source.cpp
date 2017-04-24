@@ -338,30 +338,25 @@ int main()
 	state = INITIALIZATION;
 	auto program_active = true;
 
+	std::thread activeThread;
+
 	while (program_active)
 	{
 		switch (state)
 		{
 		case INITIALIZATION:
-		{
-			std::thread InitThread(Init);
-			InitThread.join();
+			activeThread = std::thread(Init);
+			activeThread.join();
 			break;
-		}
 		case USER_INPUT:
-		{
-			std::thread UserInputThread(UserInput);
-			UserInputThread.join();
+			activeThread = std::thread(UserInput);
+			activeThread.join();
 			break;
-		}
 		case SETUP:
-		{
-			std::thread SimulationSetupThread(SimulationSetup);
-			SimulationSetupThread.join();
+			activeThread = std::thread(SimulationSetup);
+			activeThread.join();
 			break;
-		}
 		case SIMULATION:
-		{
 			// Start the benchmark clock if benchmark mode is enabled.
 			if (benchmark_mode)
 				benchmark_start = std::chrono::system_clock::now();
@@ -370,21 +365,20 @@ int main()
 
 			// Calculate time needed for simulation to finish.
 			if (benchmark_mode)
-			{
 				benchmark_time = std::chrono::duration_cast<std::chrono::milliseconds>
 					(std::chrono::system_clock::now() - benchmark_start).count();
-			}
 
 			break;
-		}
 		case RESULTS:
-		{
 			Results();
 			program_active = false;
 			break;
 		}
-		}
 	}
+
+	std::cout << "Press a key to Exit.\n";
+	std::cin.ignore();
+	getchar();
 
 	return 0;
 }
