@@ -19,8 +19,8 @@ dependencies:
 test:
   pre:
     - cmake --version          
-    - mkdir build
-    - cd build
+    #- mkdir build
+    #- cd build
   
     # Call the CMake.
     - cmake ..
