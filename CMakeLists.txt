@@ -11,13 +11,11 @@ if (UNIX)
 
     # Use C++ 11 standart.
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
+    set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+    find_package (Threads REQUIRED)
+    
     # Use C 99 standart.
     set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
-    
-    #set(THREADS_PREFER_PTHREAD_FLAG TRUE)
-    #find_package (Threads REQUIRED)
-    target_link_libraries(mything Threads::Threads)
 endif (UNIX)
 
 
