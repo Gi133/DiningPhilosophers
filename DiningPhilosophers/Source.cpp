@@ -65,7 +65,7 @@ unsigned int num_forks = 0;
 // Benchmarking Values.
 bool benchmark_mode = false;
 std::chrono::time_point<std::chrono::system_clock> benchmark_start;
-__int64 benchmark_time = 0;
+long long benchmark_time = 0;
 
 // Threading/Mutexes
 std::vector<Fork*> fork_vector; //The "forks" go here.

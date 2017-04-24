@@ -25,7 +25,7 @@ class Philosopher
 	unsigned int num_repeats_remaining; // Number of repeats remaining.
 
 	// Starving times
-	std::vector<__int64> starving_times;
+	std::vector<long long> starving_times;
 
 	// RNG Stuff
 	unsigned int GenerateRandomNumber(int min_num, int max_num) const;
@@ -54,7 +54,7 @@ public:
 	// Setters
 	void set_id(std::string id) { this->id = id; }
 	void set_state(StateText state) { this->state = state; }
-	void set_time_starving(__int64 time_starving) { this->time_starving = time_starving; }
+	void set_time_starving(long long time_starving) { this->time_starving = time_starving; }
 	void set_time_starved() { this->starving_times.push_back(time_starving); }
 	void set_eating_time(unsigned int eating_time) { this->eating_time = eating_time; }
 	void set_thinking_time(int thinking_time) { this->thinking_time = thinking_time; }
