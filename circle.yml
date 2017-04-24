@@ -16,7 +16,14 @@ dependencies:
         echo "Cached CMake found"
       fi
       
-essential check
 test:
   pre:
+    - cmake --version          
+    - mkdir build
+    - cd build
+  
+    # Call the CMake.
+    - cmake ..
+  
+    # Build the project.
     - make
