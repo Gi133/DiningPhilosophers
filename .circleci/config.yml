@@ -11,7 +11,7 @@ jobs:
               CC: clang-9
               CXX: clang++-9
               CXXFLAGS: -stdlib=libc++
-        working_directory: ./
+        working_directory: ~/DiningPhilosophers
         steps:
             #- checkout
             - run:
