@@ -1,34 +1,42 @@
-general:
-  build_dir: ./DiningPhilosophers
+version: 2.1
 
-machine:
-  timezone:
-    Europe/London
-  environment:
-    PATH: "/home/ubuntu/cmake-3.6.2-Linux-x86_64/bin:$PATH"
+orbs:
+    win: circleci/windows@2.4.0
 
-dependencies:
-  cache_directories:
-    - ~/cmake-3.6.2-Linux-x86_64
-  override:
-    - >
-      if [ ! -d ~/cmake-3.6.2-Linux-x86_64 ]; then
-        echo "No cache - building CMake"
-        cd ~ && wget --quiet https://cmake.org/files/v3.6/cmake-3.6.2-Linux-x86_64.tar.gz && tar -xvf cmake-3.6.2-Linux-x86_64.tar.gz
-      else
-        echo "Cached CMake found"
-      fi
-   
-workflows:
-    version: 2
-    build-test-and-deploy:
+jobs:
+    linux-clang:
+    machine:
+      image: ubuntu-1604:201903-01
+    environment:
+      CC: clang-9
+      CXX: clang++-9
+      CXXFLAGS: -stdlib=libc++
+    steps:
+        - checkout
+        - run:
+            name: Install Software
+            command: |
+                sudo apt-get update
+                sudo apt-get install -y software-properties-common apt-transport-https curl
+                curl -s https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+                curl -s https://apt.kitware.com/keys/kitware-archive-latest.asc | sudo apt-key add -
+                sudo apt-add-repository -y 'deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-9 main'
+                sudo apt-add-repository -y 'deb https://apt.kitware.com/ubuntu/ xenial main'
+                sudo apt-get update
+                sudo apt-get install -y ninja-build git unzip cmake clang-9 libc++-9-dev libc++abi-9-dev
+        - cmake --version
+        - cd ../
+        - mkdir build
+        - cd build
+        - cmake ..
+        - make
+
+#general:
+ # build_dir: ./DiningPhilosophers
+
+
+workflow:
+    version: 2.1
+    build:
         jobs:
-            - cmake --version          
-            - mkdir build
-            - cd build
-  
-            # Call the CMake.
-            - cmake ..
-  
-            # Build the project.
-            - make
+            - linux-clang
