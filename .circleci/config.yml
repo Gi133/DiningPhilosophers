@@ -13,7 +13,7 @@ jobs:
               CXXFLAGS: -stdlib=libc++
         working_directory: ~/DiningPhilosophers
         steps:
-            #- checkout
+            - checkout
             - run:
                 name: Install Software
                 command: |
