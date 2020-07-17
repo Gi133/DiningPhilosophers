@@ -29,10 +29,9 @@ jobs:
                 name: CMake
                 command: |
                     cmake --version
-                    cd ../
                     mkdir build
                     cd build
-                    cmake ..
+                    cmake .
                     make
 
 #general:
