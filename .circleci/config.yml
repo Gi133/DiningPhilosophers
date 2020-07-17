@@ -37,6 +37,6 @@ jobs:
 
 workflow:
     version: 2.1
-    build:
+    cmake-build:
         jobs:
             - linux-clang
