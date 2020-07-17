@@ -6,11 +6,12 @@ orbs:
 jobs:
     linux-clang:
         machine:
-          image: ubuntu-1604:201903-01
+            image: ubuntu-1604:201903-01
         environment:
-          CC: clang-9
-          CXX: clang++-9
-          CXXFLAGS: -stdlib=libc++
+              CC: clang-9
+              CXX: clang++-9
+              CXXFLAGS: -stdlib=libc++
+        working_directory: ./
         steps:
             - checkout
             - run:
@@ -24,12 +25,15 @@ jobs:
                     sudo apt-add-repository -y 'deb https://apt.kitware.com/ubuntu/ xenial main'
                     sudo apt-get update
                     sudo apt-get install -y ninja-build git unzip cmake clang-9 libc++-9-dev libc++abi-9-dev
-            - cmake --version
-            - cd ../
-            - mkdir build
-            - cd build
-            - cmake ..
-            - make
+            - run:
+                name: CMake
+                command: |
+                    cmake --version
+                    cd ../
+                    mkdir build
+                    cd build
+                    cmake ..
+                    make
 
 #general:
  # build_dir: ./DiningPhilosophers
