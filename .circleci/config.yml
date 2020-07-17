@@ -35,7 +35,7 @@ jobs:
  # build_dir: ./DiningPhilosophers
 
 
-workflow:
+workflows:
     version: 2.1
     cmake-build:
         jobs:
