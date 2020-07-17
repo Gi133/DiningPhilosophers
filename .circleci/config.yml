@@ -30,8 +30,7 @@ jobs:
                 command: |
                     cmake --version
                     mkdir build
-                    cd build
-                    cmake .
+                    cmake ./build
                     make
 
 #general:
