@@ -16,9 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup
-        run: mkdir build && cd build
-      - name: cmake
-        run: cmake ..
+        run: mkdir build && cd build && cmake ..
       - name: Build project
         run: cmake --build build
       - name: Package
