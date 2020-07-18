@@ -18,7 +18,7 @@ jobs:
       - name: Setup
         run: mkdir build && cd build && cmake ..
       - name: Build project
-        run: cmake --build build
+        run: cmake --build build -DCMAKE_BUILD_TYPE=Release
       - name: Package
         run: powershell Compress-Archive -Path ./build/DiningPhilosophers -Destination DiningPhilosophers.zip 
       - name: Create Release
