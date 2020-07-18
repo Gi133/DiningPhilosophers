@@ -3,6 +3,8 @@ on:
     # Sequence of patterns matched against refs/tags
     tags:
     - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    branch:
+    - master
 
 name: Upload Release Asset
 
@@ -13,10 +15,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Build project
-        run: |
-          mkdir build && cd build && cmake ..
-          cmake --build build
+      - name: Setup
+        run: mkdir build && cd build && cmake ..
+      - name: Build
+        run: cmake --build build
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
