@@ -11,7 +11,7 @@ name: Upload Release Asset
 jobs:
   build:
     name: Upload Release Asset
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -20,7 +20,7 @@ jobs:
       - name: Build project
         run: cmake --build build
       - name: Zip
-        run: zip -r DiningPhilosophers.zip ./
+        run: zip -r DiningPhilosophers.zip ./build/DiningPhilosophers
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1

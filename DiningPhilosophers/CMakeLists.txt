@@ -35,6 +35,8 @@ target_include_directories(${PROJECT_NAME}
 		Headers
 )
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/PhilosopherNames.txt ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+
 install(TARGETS ${PROJECT_NAME}
 	CONFIGURATIONS Debug
 	RUNTIME DESTINATION Debug/bin
