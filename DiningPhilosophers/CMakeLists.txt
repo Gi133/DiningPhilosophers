@@ -3,7 +3,7 @@ add_executable(${PROJECT_NAME})
 if(UNIX)
 target_link_options(${PROJECT_NAME}
 	PUBLIC
-		lpthread
+		-lpthread
 )
 endif(UNIX)
 
