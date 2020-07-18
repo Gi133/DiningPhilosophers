@@ -1,6 +1,6 @@
-#include "PhilosopherThread.h"
 #include <string>
 #include <iostream>
+#include <PhilosopherThread.h>
 
 PhilosopherThread::PhilosopherThread(std::mutex* cout_mutex, bool benchmark_mode)
 {

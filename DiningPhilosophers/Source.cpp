@@ -46,16 +46,16 @@
 // http://www.microsoft.com/en-us/download/details.aspx?id=30679
 //
 
-#include <string>
-#include <iostream>
 #include <algorithm>
-#include <mutex>
-#include <vector>
 #include <atomic>
-
-#include "PhilosopherThread.h"
-#include "Fork.h"
 #include <cctype>
+#include <iostream>
+#include <mutex>
+#include <string>
+#include <vector>
+
+#include "Headers/Fork.h"
+#include "Headers/PhilosopherThread.h"
 
 // Global Variables.
 enum PROGRAM_STATE { INITIALIZATION, USER_INPUT, SETUP, SIMULATION, RESULTS } state;
@@ -95,9 +95,6 @@ void UserInput()
 	std::cout << "Select which mode you wish to use, type benchmark or manual: ";
 	std::cin >> mode;
 	std::cout << std::endl;
-
-	for (auto letter : mode)
-		tolower(letter);
 
 	if (mode == "benchmark")
 	{

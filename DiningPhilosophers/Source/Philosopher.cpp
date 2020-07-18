@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "Philosopher.h"
+#include <Philosopher.h>
 
 Philosopher::Philosopher()
 {

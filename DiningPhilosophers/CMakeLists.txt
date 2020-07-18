@@ -1,29 +1,31 @@
-# Define project name as the folder name.
-get_filename_component(ProjectId ${CMAKE_CURRENT_LIST_DIR} NAME)
-string(REPLACE " " "_" ProjectId ${ProjectId})
-project(${ProjectId})
+add_executable(${PROJECT_NAME})
 
+target_compile_features(${PROJECT_NAME} 
+	PUBLIC 
+		cxx_std_11
+)
 
-if (WIN32)
-	if (MSVC)
-		# For precompiled header.
-		set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Yustdafx.h /FIstdafx.h")
-	endif()
-endif()	
+set_target_properties(${PROJECT_NAME} 
+	PROPERTIES 
+		CXX_EXTENSIONS OFF
+)
 
-file(GLOB_RECURSE INCS "*.h")
+target_sources(${PROJECT_NAME}
+	PRIVATE
+		Headers/Fork.h
+		Headers/Philosopher.h
+		Headers/PhilosopherThread.h
+		
+		Source/Fork.cpp
+		Source/Philosopher.cpp
+		Source/PhilosopherThread.cpp
+		
+		source.cpp
+)
 
-aux_source_directory(./ SRCS)
+target_include_directories(${PROJECT_NAME}
+	PRIVATE
+		Headers
+)
 
-
-add_executable(${PROJECT_NAME} ${SRCS} ${INCS})
-
-if (WIN32)
-	if (MSVC)
-		# For precompiled header.
-		set_source_files_properties(src/stdafx.cpp
-			PROPERTIES
-			COMPILE_FLAGS "/Ycstdafx.h"
-		)
-	endif()
-endif()
+install(TARGETS ${PROJECT_NAME})
