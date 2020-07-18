@@ -35,4 +35,12 @@ target_include_directories(${PROJECT_NAME}
 		Headers
 )
 
-install(TARGETS ${PROJECT_NAME})
+install(TARGETS ${PROJECT_NAME}
+	CONFIGURATIONS Debug
+	RUNTIME DESTINATION Debug/bin
+)
+
+install(TARGETS ${PROJECT_NAME}
+	CONFIGURATIONS Release
+	RUNTIME DESTINATION Release/bin
+)
