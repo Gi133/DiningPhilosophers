@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: configure
-        run: mkdir build && cd build && cmake -DCMAKE_CXX_FLAGS="-Werror" ..
+        run: mkdir build && cd build && pwd && cmake ..
       - name: build
         run: cmake --build build
       - name: test
