@@ -1,7 +1,10 @@
 #Dining Philosophers Operating Systems Assessment [![Build Status](https://travis-ci.org/Gi133/DiningPhilosophers.svg?branch=master)](https://travis-ci.org/Gi133/DiningPhilosophers)
 
 # What is this?
-In essence, this is a thread manager. What started off as a solution to the philosopher problem went outside the scope it was originally intented for. The application provded here makes use of thread timings to make sure that no thread is suspended for too long on a limited number of resources. What the users will see, to this effect, when starting the application is the ability to set the number of philosphers/threads as well as how many spoons/virtual_resources are available to them as a whole.
+In essence, this is a thread manager. 
+What started off as a solution to the philosopher problem went outside the scope it was originally intented for. 
+The application provided here makes use of thread timings to make sure that no thread is suspended for too long on a limited number of resources. 
+What the users will see, to this effect, when starting the application is the ability to set the number of philosphers/threads as well as how many spoons/virtual_resources are available to them as a whole.
 
 These settings can be tweaked as required or simply chose the optional benchmark mode to see how long your processor requires to go through these threads. Be warned though, this is a highly CPU intensive application if the number of threads is set too high and could potentiall cause hangups and stalls.
 
