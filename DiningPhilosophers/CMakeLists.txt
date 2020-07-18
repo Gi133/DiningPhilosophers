@@ -20,7 +20,7 @@ target_sources(${PROJECT_NAME}
 		Source/Philosopher.cpp
 		Source/PhilosopherThread.cpp
 		
-		source.cpp
+		Source.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
