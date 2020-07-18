@@ -20,7 +20,7 @@ jobs:
       - name: Build project
         run: cmake --build build
       - name: Zip
-        run: zip -r DiningPhilosophers.zip 
+        run: zip -r DiningPhilosophers.zip ./
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
