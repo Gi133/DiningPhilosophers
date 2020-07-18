@@ -1,5 +1,12 @@
 add_executable(${PROJECT_NAME})
 
+if(UNIX)
+target_link_options(${PROJECT_NAME}
+	PUBLIC
+		lpthread
+)
+endif(UNIX)
+
 target_compile_features(${PROJECT_NAME} 
 	PUBLIC 
 		cxx_std_11

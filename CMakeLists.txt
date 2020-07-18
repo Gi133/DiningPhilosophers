@@ -11,3 +11,5 @@ set(CMAKE_CXX_CLANG_TIDY
   -checks=*;
   -warnings-as-errors=*;
 )
+
+include(CPack)
