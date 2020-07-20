@@ -6,8 +6,8 @@ jobs:
   debug:
     runs-on: ubuntu-latest
     steps:
-      - name: configure
-        run: echo $github.ref
+      - name: output branch
+        run: echo running on branch ${GITHUB_REF##*/}
 
   build:
     runs-on: ubuntu-latest
