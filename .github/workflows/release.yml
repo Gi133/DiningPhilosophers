@@ -1,19 +1,13 @@
 on:
   push:
-    # Sequence of patterns matched against refs/heads
-    #branches:    
-      # Push events on master branch
-      #- master
-    # Sequence of patterns matched against refs/tags
     tags:        
-      - 'v*'             # Push events to v tag
+      - v*             # Push events to v tag
 
 name: Upload Release Asset
 
 jobs:
   build:
     if: github.event.base_ref == 'refs/heads/master' # Ghetto hack/fix to only have this thing run on master.
-    name: Upload Release Asset
     runs-on: windows-latest
     steps:
       - name: Checkout code
