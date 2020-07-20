@@ -3,10 +3,13 @@ name: C/C++ CI
 on: [push, pull_request]
 
 jobs:
-  build:
-
+  debug:
     runs-on: ubuntu-latest
+      - name: Output
+        run: echo $github.ref
 
+  build:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: configure

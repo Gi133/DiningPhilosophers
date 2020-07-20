@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Output branch
-        run: echo "$github.event.base_ref"
+        run: echo $github.ref
 
   build:
     if: github.event.base_ref == 'refs/heads/master' # Ghetto hack/fix to only have this thing run on master.
