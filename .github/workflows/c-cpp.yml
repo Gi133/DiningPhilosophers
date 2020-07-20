@@ -5,7 +5,8 @@ on: [push, pull_request]
 jobs:
   debug:
     runs-on: ubuntu-latest
-      - name: Output
+    steps:
+      - name: configure
         run: echo $github.ref
 
   build:
