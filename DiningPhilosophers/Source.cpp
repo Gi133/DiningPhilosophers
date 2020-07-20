@@ -58,7 +58,7 @@
 #include "Headers/PhilosopherThread.h"
 
 // Global Variables.
-enum PROGRAM_STATE { INITIALIZATION, USER_INPUT, SETUP, SIMULATION, RESULTS } state;
+enum class PROGRAM_STATE { INITIALIZATION, USER_INPUT, SETUP, SIMULATION, RESULTS } state;
 unsigned int num_philosophers = 0;
 unsigned int num_forks = 0;
 
@@ -82,7 +82,7 @@ void Init()
 	// Do any initializations or first-time computations here.
 	cout_mutex = new std::mutex();
 
-	state = USER_INPUT;
+	state = PROGRAM_STATE::USER_INPUT;
 }
 
 void UserInput()
@@ -143,7 +143,7 @@ void UserInput()
 	std::cout << std::endl << "Thank you, please wait... \n\n";
 	cout_mutex->unlock();
 
-	state = SETUP;
+	state = PROGRAM_STATE::SETUP;
 }
 
 void SimulationSetup()
@@ -156,7 +156,7 @@ void SimulationSetup()
 	for (unsigned i = 0; i < num_forks; i++)
 		fork_vector.push_back(new Fork());
 
-	state = SIMULATION;
+	state = PROGRAM_STATE::SIMULATION;
 }
 
 bool CheckMutexes(unsigned int num_needed)
@@ -310,7 +310,7 @@ void Simulation()
 		_simulation_active = CheckSimulationActive();
 	}
 
-	state = RESULTS;
+	state = PROGRAM_STATE::RESULTS;
 }
 
 void Results()
@@ -332,7 +332,7 @@ void Results()
 
 int main()
 {
-	state = INITIALIZATION;
+	state = PROGRAM_STATE::INITIALIZATION;
 	auto program_active = true;
 
 	std::thread activeThread;
@@ -341,19 +341,19 @@ int main()
 	{
 		switch (state)
 		{
-		case INITIALIZATION:
+		case PROGRAM_STATE::INITIALIZATION:
 			activeThread = std::thread(Init);
 			activeThread.join();
 			break;
-		case USER_INPUT:
+		case PROGRAM_STATE::USER_INPUT:
 			activeThread = std::thread(UserInput);
 			activeThread.join();
 			break;
-		case SETUP:
+		case PROGRAM_STATE::SETUP:
 			activeThread = std::thread(SimulationSetup);
 			activeThread.join();
 			break;
-		case SIMULATION:
+		case PROGRAM_STATE::SIMULATION:
 			// Start the benchmark clock if benchmark mode is enabled.
 			if (benchmark_mode)
 				benchmark_start = std::chrono::system_clock::now();
@@ -366,7 +366,7 @@ int main()
 					(std::chrono::system_clock::now() - benchmark_start).count();
 
 			break;
-		case RESULTS:
+		case PROGRAM_STATE::RESULTS:
 			Results();
 			program_active = false;
 			break;
