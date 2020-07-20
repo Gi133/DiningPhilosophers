@@ -1,12 +1,12 @@
 on:
   push:
     # Sequence of patterns matched against refs/heads
-    branches:    
+    #branches:    
       # Push events on master branch
-      - master
+      #- master
     # Sequence of patterns matched against refs/tags
     tags:        
-      - v*             # Push events to v tag
+      - 'v*'             # Push events to v tag
 
 name: Upload Release Asset
 
