@@ -12,6 +12,7 @@ name: Upload Release Asset
 
 jobs:
   build:
+    if: github.event.base_ref == 'refs/heads/master' # Ghetto hack/fix to only have this thing run on master.
     name: Upload Release Asset
     runs-on: windows-latest
     steps:
