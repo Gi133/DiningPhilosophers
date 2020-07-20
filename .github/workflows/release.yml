@@ -7,7 +7,7 @@ name: Upload Release Asset
 
 jobs:
   build:
-    if: ${GITHUB_REF##*/} == 'master' # Ghetto hack/fix to only have this thing run on master.
+    if: GITHUB_REF##*/ == 'master' # Ghetto hack/fix to only have this thing run on master.
     runs-on: windows-latest
     steps:
       - name: Checkout code
