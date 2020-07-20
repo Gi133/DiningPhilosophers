@@ -6,14 +6,8 @@ on:
 name: Upload Release Asset
 
 jobs:
-  debug:
-    runs-on: windows-latest
-    steps:
-      - name: Output branch
-        run: echo $github.ref
-
   build:
-    if: github.event.base_ref == 'refs/heads/master' # Ghetto hack/fix to only have this thing run on master.
+    if: ${GITHUB_REF##*/} == 'master' # Ghetto hack/fix to only have this thing run on master.
     runs-on: windows-latest
     steps:
       - name: Checkout code
