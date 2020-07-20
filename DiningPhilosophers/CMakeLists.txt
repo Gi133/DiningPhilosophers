@@ -35,7 +35,13 @@ target_include_directories(${PROJECT_NAME}
 		Headers
 )
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/PhilosopherNames.txt ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+add_custom_command(
+	TARGET ${PROJECT_NAME}
+	POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		${CMAKE_CURRENT_SOURCE_DIR}/PhilosopherNames.txt
+		$<TARGET_FILE_DIR:${PROJECT_NAME}>
+)
 
 install(TARGETS ${PROJECT_NAME}
 	CONFIGURATIONS Debug
