@@ -20,7 +20,7 @@ jobs:
       - name: Build project
         run: cmake --build build --config Release
       - name: Package
-        run: powershell Compress-Archive -Path ./build/DiningPhilosophers -Destination DiningPhilosophers.zip 
+        run: powershell Compress-Archive -Path ./build/DiningPhilosophers/Release -Destination DiningPhilosophers.zip 
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
