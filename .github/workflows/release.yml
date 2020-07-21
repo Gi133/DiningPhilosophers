@@ -6,6 +6,11 @@ on:
 name: Upload Release Asset
 
 jobs:
+  debug:
+    runs-on: windows-latest
+    steps:
+      - name: Print Current Branch
+        run: echo running on branch ${{github.ref}}
   build:
     if: github.ref == 'refs/heads/master' # Ghetto hack/fix to only have this thing run on master.
     runs-on: windows-latest
